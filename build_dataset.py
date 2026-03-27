@@ -2,49 +2,42 @@ import os
 import numpy as np
 from extract import extract_features
 
-DATASET_FOLDER = "dataset"
+DATASET_PATH = "dataset"
 
 X = []
 y = []
-
 label_map = {}
-label_counter = 0
 
-print("🚀 Building dataset...\n")
+label = 0
 
-for website in os.listdir(DATASET_FOLDER):
-    website_path = os.path.join(DATASET_FOLDER, website)
+print("🚀 Building dataset...")
+
+for website in os.listdir(DATASET_PATH):
+    website_path = os.path.join(DATASET_PATH, website)
 
     if not os.path.isdir(website_path):
         continue
 
-    # Assign label
-    if website not in label_map:
-        label_map[website] = label_counter
-        label_counter += 1
+    print(f"[INFO] Processing {website} → Label {label}")
 
-    label = label_map[website]
-
-    print(f"[INFO] Processing website: {website} → Label {label}")
+    label_map[website] = label
 
     for file in os.listdir(website_path):
         if file.endswith(".pcap") or file.endswith(".pcapng"):
-
-            file_path = os.path.join(website_path, file)
+            filepath = os.path.join(website_path, file)
 
             try:
-                features = extract_features(file_path)
+                features = extract_features(filepath)
                 X.append(features)
                 y.append(label)
-
             except Exception as e:
-                print(f"❌ Skipping {file}: {e}")
+                print(f"[ERROR] {file}: {e}")
 
-# Convert to numpy
+    label += 1
+
 X = np.array(X)
 y = np.array(y)
 
-# Save
 np.save("X.npy", X)
 np.save("y.npy", y)
 
