@@ -1,0 +1,35 @@
+{
+  "class_names": [
+    "BBC News",
+    "Coursera",
+    "Discord",
+    "Disney",
+    "Dropbox",
+    "Facebook",
+    "github",
+    "pinterest",
+    "quora",
+    "tumble"
+  ],
+  "n_classes": 10,
+  "window_size": 100,
+  "n_features": 12,
+  "feature_names": [
+    "pkt_len",
+    "ip_len",
+    "trans_len",
+    "direction",
+    "iat",
+    "protocol",
+    "tcp_flags",
+    "win_size",
+    "burst_size",
+    "flow_bytes",
+    "roll_mean",
+    "roll_std"
+  ],
+  "test_accuracy": 0.0,
+  "n_training_samples": 2130,
+  "n_test_samples": 457,
+  "epochs_trained": 6
+}
